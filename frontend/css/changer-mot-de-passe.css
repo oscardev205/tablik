@@ -1,0 +1,86 @@
+body {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(224,152,42,0.12), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(75,123,93,0.12), transparent 45%),
+    var(--papier);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ticket {
+  background: linear-gradient(180deg, #ffffff, #fdfcfa);
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(27,42,65,0.06), 0 24px 48px rgba(27,42,65,0.14);
+  overflow: hidden;
+  animation: montee 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ticket-contenu { padding: 36px 34px 40px; }
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+  margin-bottom: 8px;
+}
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--encre);
+  margin-bottom: 8px;
+}
+.explication {
+  font-size: 13px;
+  color: var(--ardoise);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ardoise);
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+input {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid #E4E1DA;
+  border-radius: 7px;
+  font-size: 14.5px;
+  color: var(--encre);
+  background: var(--papier);
+}
+input:focus { outline: none; border-color: var(--encre); }
+button {
+  width: 100%;
+  margin-top: 26px;
+  padding: 13px;
+  background: var(--encre);
+  color: var(--papier);
+  border: none;
+  border-radius: 7px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { background: #14213a; }
+#message {
+  margin-top: 14px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--piment);
+  min-height: 16px;
+}
+
+@media (max-width: 480px) {
+  .ticket-contenu { padding: 34px 26px 36px; }
+}

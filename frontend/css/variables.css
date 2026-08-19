@@ -1,0 +1,79 @@
+:root {
+  --encre: #1B2A41;
+  --papier: #F6F3EE;
+  --safran: #E0982A;
+  --sauge: #4B7B5D;
+  --piment: #C1442E;
+  --ardoise: #8C93A0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--encre);
+}
+
+@keyframes montee {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-douce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fondu-fond {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+.overlay-abonnement {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(246,243,238,0.97);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.overlay-abonnement.actif { display: flex; }
+
+.carte-blocage {
+  background: white;
+  border-radius: 18px;
+  padding: 36px 30px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(27,42,65,0.15);
+  animation: montee 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.carte-blocage h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  margin: 10px 0 8px;
+  color: var(--encre);
+}
+.carte-blocage p {
+  font-size: 13.5px;
+  color: var(--ardoise);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.carte-blocage button {
+  background: var(--encre);
+  color: var(--papier);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}

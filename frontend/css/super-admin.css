@@ -1,0 +1,230 @@
+body {
+  background:
+    radial-gradient(circle at 10% 15%, rgba(224,152,42,0.10), transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(75,123,93,0.10), transparent 40%),
+    var(--papier);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--encre);
+  color: var(--papier);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+}
+header h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 2px;
+}
+#boutonDeconnexion {
+  background: transparent;
+  border: 1px solid rgba(246,243,238,0.3);
+  color: var(--papier);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+#boutonDeconnexion:hover { border-color: var(--papier); }
+
+nav {
+  display: flex;
+  gap: 6px;
+  padding: 16px 20px 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+nav::-webkit-scrollbar { display: none; }
+.onglet {
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 7px 7px 0 0;
+  cursor: pointer;
+  color: var(--ardoise);
+  background: transparent;
+  border: none;
+}
+.onglet.actif { color: var(--encre); background: white; }
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 28px 60px;
+}
+
+@media (max-width: 640px) {
+  main { padding: 18px 16px 50px; }
+  header { padding: 16px 18px; }
+}
+
+.panneau { display: none; }
+.panneau.actif { display: block; }
+
+.barre-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.barre-action h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 19px;
+}
+
+.demande-carte {
+  background: linear-gradient(180deg, #ffffff, #fdfcfa);
+  border-radius: 14px;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05), 0 10px 22px rgba(27,42,65,0.08);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.demande-info .numero {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  color: var(--ardoise);
+}
+.demande-info h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  margin: 3px 0 4px;
+}
+.demande-info .detail {
+  font-size: 12.5px;
+  color: var(--ardoise);
+}
+
+.actions-demande { display: flex; gap: 8px; }
+.bouton-valider {
+  background: var(--sauge);
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.bouton-refuser {
+  background: var(--papier);
+  color: var(--piment);
+  border: none;
+  padding: 9px 14px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pastille {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.pastille.essai { background: rgba(224,152,42,0.12); color: var(--safran); }
+.pastille.actif { background: rgba(75,123,93,0.12); color: var(--sauge); }
+.pastille.expire { background: rgba(193,68,46,0.12); color: var(--piment); }
+.pastille.validee { background: rgba(75,123,93,0.12); color: var(--sauge); }
+.pastille.refusee { background: rgba(193,68,46,0.12); color: var(--piment); }
+
+.tableau-restaurants {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05), 0 10px 22px rgba(27,42,65,0.08);
+}
+.tableau-restaurants th {
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ardoise);
+  padding: 12px 16px;
+  border-bottom: 1px solid #E4E1DA;
+}
+.tableau-restaurants td {
+  padding: 12px 16px;
+  font-size: 13.5px;
+  border-bottom: 1px solid #F0EDE7;
+}
+.tableau-restaurants tr:last-child td { border-bottom: none; }
+
+#rechercheRestaurants {
+  width: 100%;
+  max-width: 320px;
+  padding: 9px 12px;
+  border: 1.5px solid #E4E1DA;
+  border-radius: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+.reglage-carte {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05), 0 10px 22px rgba(27,42,65,0.08);
+  max-width: 420px;
+}
+.reglage-carte label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ardoise);
+  margin-top: 14px;
+  margin-bottom: 5px;
+}
+.reglage-carte input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #E4E1DA;
+  border-radius: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+.bouton-principal {
+  background: var(--encre);
+  color: var(--papier);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 18px;
+}
+.bouton-principal:hover { background: #14213a; }
+
+.vide {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ardoise);
+  font-size: 14px;
+}

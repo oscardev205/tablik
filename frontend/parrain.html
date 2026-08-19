@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon parrainage - Tablik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/parrain.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Tablik</div>
+    <h1>Mon parrainage</h1>
+  </div>
+  <button id="boutonDeconnexion">Déconnexion</button>
+</header>
+
+<main>
+  <div class="carte-lien">
+    <div style="font-size:13px; color:var(--ardoise);">Total de vos commissions</div>
+    <div class="montant" id="totalCommissions">0 FCFA</div>
+    <div style="font-size:12.5px; color:var(--ardoise);">Votre commission : <span id="monPourcentage"></span> sur chaque paiement</div>
+    <div class="lien-parrainage" id="monLien"></div>
+    <button class="bouton-copier" id="boutonCopierLien">Copier mon lien</button>
+  </div>
+
+  <h2>Mes restaurants parrainés</h2>
+  <div id="listeMesRestaurants"></div>
+
+  <h2>Demander un retrait</h2>
+  <div class="carte-lien" style="text-align:left;">
+    <div style="font-size:13px; color:var(--ardoise); margin-bottom:10px;">Solde disponible : <strong id="soldeDisponible" style="color:var(--sauge);"></strong></div>
+    <form id="formRetrait">
+      <label style="display:block; font-size:12.5px; font-weight:500; color:var(--ardoise); margin-bottom:5px;">Montant à retirer (FCFA)</label>
+      <input type="number" id="montantRetrait" min="1" required style="width:100%; padding:9px 11px; border:1.5px solid #E4E1DA; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:10px;">
+
+      <label style="display:block; font-size:12.5px; font-weight:500; color:var(--ardoise); margin-bottom:5px;">Opérateur de réception</label>
+      <select id="operateurRetrait" required style="width:100%; padding:9px 11px; border:1.5px solid #E4E1DA; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:10px;">
+        <option value="mtn">MTN Mobile Money</option>
+        <option value="moov">Moov Money</option>
+        <option value="celtiis">Celtiis Cash</option>
+      </select>
+
+      <label style="display:block; font-size:12.5px; font-weight:500; color:var(--ardoise); margin-bottom:5px;">Numéro de réception</label>
+      <input type="text" id="numeroReceptionRetrait" required style="width:100%; padding:9px 11px; border:1.5px solid #E4E1DA; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:14px;">
+
+      <button type="submit" class="bouton-copier" style="width:100%;">Demander le retrait</button>
+    </form>
+  </div>
+
+  <h2>Mes demandes de retrait</h2>
+  <div id="listeMesRetraits"></div>
+
+  <h2>Mes commissions</h2>
+  <div id="listeCommissions"></div>
+</main>
+
+<script src="js/parrain.js"></script>
+<script src="js/enregistrer-pwa.js"></script>
+</body>
+</html>

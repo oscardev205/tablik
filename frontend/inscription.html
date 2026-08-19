@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Créer mon restaurant - Tablik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/inscription.css">
+</head>
+<body>
+
+<div class="carte">
+  <div class="pastille-marque"><span>T</span></div>
+  <div class="eyebrow">Tablik</div>
+
+  <div id="zoneFormulaire">
+    <h1>Créer mon restaurant</h1>
+    <div class="sous-titre">7 jours d'essai gratuit, sans engagement.</div>
+    <form id="formInscription">
+      <label for="nomRestaurant">Nom du restaurant</label>
+      <input type="text" id="nomRestaurant" required>
+
+      <label for="nomAdmin">Votre nom</label>
+      <input type="text" id="nomAdmin" required>
+
+      <label for="telephone">Numéro de téléphone</label>
+      <div style="display:flex; gap:8px;">
+        <select id="indicatifPays" style="width:auto; flex-shrink:0; padding:12px 10px; border:1.5px solid #E4E1DA; border-radius:10px; font-family:'Inter',sans-serif; font-size:14px; background:var(--papier); color:var(--encre);"></select>
+        <input type="tel" id="telephone" placeholder="Numéro sans l'indicatif" required style="flex:1;">
+      </div>
+      <div id="erreurTelephone" style="font-size:12px; color:var(--piment); margin-top:5px; min-height:14px;"></div>
+
+      <label for="identifiant">Identifiant de connexion</label>
+      <input type="text" id="identifiant" placeholder="Ex. votre email" required>
+
+      <label for="motDePasse">Mot de passe</label>
+      <input type="password" id="motDePasse" required minlength="6">
+
+      <button type="submit" id="boutonInscription">Créer mon restaurant</button>
+    </form>
+    <div id="message"></div>
+    <div class="lien-connexion">Déjà un compte ? <a href="connexion.html">Se connecter</a></div>
+  </div>
+
+  <div id="zoneDejaInscrit" class="deja-inscrit" style="display:none;">
+    <h1>Vous avez déjà un compte</h1>
+    <p>Un essai gratuit a déjà été créé depuis cet appareil. Connectez-vous à votre compte existant.</p>
+    <a href="connexion.html"><button type="button">Se connecter</button></a>
+  </div>
+</div>
+
+<script src="js/inscription.js"></script>
+</body>
+</html>

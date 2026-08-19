@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Tablik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/admin.css">
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1B2A41">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Tablik</div>
+    <h1>Tableau de bord</h1>
+  </div>
+  <div class="entete-droite">
+    <span id="nomUtilisateur"></span>
+    <button id="boutonDeconnexion">Déconnexion</button>
+  </div>
+</header>
+
+<nav>
+  <button class="onglet actif" data-panneau="panneauCommandes">Commandes</button>
+  <button class="onglet" data-panneau="panneauMenu">Menu</button>
+  <button class="onglet" data-panneau="panneauEmployes">Employés</button>
+  <button class="onglet" data-panneau="panneauTables">Tables</button>
+  <button class="onglet" data-panneau="panneauHistorique">Historique</button>
+  <button class="onglet" data-panneau="panneauAbonnement">Mon abonnement</button>
+</nav>
+<main>
+
+  <section id="panneauCommandes" class="panneau actif">
+    <div class="barre-action">
+      <h2>Commandes en cours</h2>
+    </div>
+    <div id="listeCommandes"></div>
+  </section>
+
+  <section id="panneauMenu" class="panneau">
+    <div class="barre-action">
+      <h2>Le menu</h2>
+      <button class="bouton-principal" id="boutonAjouterPlat">Ajouter un plat</button>
+    </div>
+
+    <div class="reglage-restaurant">
+      <label>Catégories</label>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;" id="listeCategoriesTags"></div>
+      <div style="display:flex; gap:8px;">
+        <input type="text" id="nouvelleCategorieInput" placeholder="Ex. Boissons">
+        <button class="lien-action" id="boutonAjouterCategorie">Ajouter</button>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+      <input type="text" id="rechercheMenuAdmin" placeholder="Rechercher un plat..." style="flex:1; min-width:180px; padding:9px 12px; border:1.5px solid #E4E1DA; border-radius:7px; font-family:'Inter',sans-serif; font-size:13.5px;">
+      <select id="filtreCategorieAdmin" style="padding:9px 12px; border:1.5px solid #E4E1DA; border-radius:7px; font-family:'Inter',sans-serif; font-size:13.5px;">
+        <option value="">Toutes les catégories</option>
+      </select>
+    </div>
+
+    <div class="grille" id="grillePlats"></div>
+  </section>
+
+  <section id="panneauEmployes" class="panneau">
+    <div class="barre-action">
+      <h2>Les employés</h2>
+      <button class="bouton-principal" id="boutonAjouterEmploye">Ajouter un employé</button>
+    </div>
+    <div class="grille" id="grilleEmployes"></div>
+  </section>
+  <section id="panneauTables" class="panneau">
+  <div class="barre-action">
+    <h2>Les tables</h2>
+    <button class="bouton-principal" id="boutonAjouterTable">Ajouter une table</button>
+  </div>
+
+  <div class="reglage-restaurant">
+    <label for="nomRestaurantInput">Nom du restaurant (affiché sur les tickets QR)</label>
+    <div style="display:flex; gap:8px;">
+      <input type="text" id="nomRestaurantInput" placeholder="Ex. Chez Josias">
+      <button class="lien-action" id="boutonEnregistrerNom">Enregistrer</button>
+    </div>
+  </div>
+
+  <div class="grille" id="grilleTables"></div>
+</section>
+
+<section id="panneauHistorique" class="panneau">
+  <div class="barre-action">
+    <h2>Historique des commandes servies</h2>
+  </div>
+
+  <div class="reglage-restaurant" style="display:flex; align-items:flex-end; gap:12px;">
+    <div style="flex:1;">
+      <label for="dateHistorique">Date</label>
+      <input type="date" id="dateHistorique">
+    </div>
+    <div id="totalJourHistorique" style="font-family:'IBM Plex Mono', monospace; font-size:15px; font-weight:600; padding-bottom:9px;"></div>
+  </div>
+
+  <div id="recapVentesHistorique" style="margin-bottom:20px;"></div>
+
+  <div id="listeHistorique"></div>
+</section>
+
+<section id="panneauAbonnement" class="panneau">
+  <div class="barre-action">
+    <h2>Mon abonnement</h2>
+  </div>
+
+  <div id="carteStatutAbonnement" class="reglage-restaurant" style="margin-bottom:20px;"></div>
+
+  <div class="reglage-restaurant" style="margin-bottom:20px;">
+    <label>Déclarer un paiement</label>
+    <p style="font-size:12.5px; color:var(--ardoise); margin-bottom:10px;">
+      Envoyez le montant indiqué ci-dessus au numéro Mobile Money correspondant, puis collez ici l'ID de transaction reçu par SMS.
+    </p>
+    <form id="formDemandePaiement">
+    <select id="nombreMoisPaiement" required style="width:100%; padding:9px 11px; border:1.5px solid #E4E1DA; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:8px;">
+        <option value="1">1 mois</option>
+        <option value="2">2 mois</option>
+        <option value="3">3 mois</option>
+        <option value="6">6 mois</option>
+        <option value="12">12 mois</option>
+      </select>
+      <div id="montantCalcule" style="font-size:13px; font-weight:600; color:var(--encre); margin-bottom:8px;"></div>
+      <select id="operateurPaiement" required style="width:100%; padding:9px 11px; border:1.5px solid #E4E1DA; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:8px;">
+        <option value="mtn">MTN Mobile Money</option>
+        <option value="moov">Moov Money</option>
+        <option value="celtiis">Celtiis Cash</option>
+      </select>
+      <div id="numeroSelonOperateur" style="background: rgba(224,152,42,0.1); color: var(--encre); font-size:13px; font-weight:600; padding:9px 11px; border-radius:6px; margin-bottom:8px; display:none;"></div>
+      <input type="text" id="idTransactionPaiement" placeholder="ID de transaction" required style="width:100%; padding:9px 11px; border:1.5px solid #E4E1DA; border-radius:6px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:10px;">
+      <button type="submit" class="bouton-principal" style="width:100%;">Déclarer ce paiement</button>
+    </form>
+  </div>
+
+  <div class="barre-action">
+    <h2 style="font-size:16px;">Mes déclarations</h2>
+  </div>
+  <div id="listeMesDemandes"></div>
+</section>
+
+</main>
+
+<div class="modale-fond" id="modalePlatFond">
+  <div class="modale">
+    <h2 id="titreModalePlat">Ajouter un plat</h2>
+    <form id="formPlat">
+      <label for="platNom">Nom du plat</label>
+      <input type="text" id="platNom" required>
+      <label for="platPrix">Prix (FCFA)</label>
+      <input type="number" id="platPrix" min="0" required>
+      <label for="platPortions">Portions disponibles</label>
+      <input type="number" id="platPortions" min="0" required>
+      <label for="platCategorie">Catégorie</label>
+      <select id="platCategorie">
+        <option value="">Aucune</option>
+      </select>
+      <label for="platPhoto">Photo (optionnelle)</label>
+      <input type="file" id="platPhoto" accept="image/jpeg,image/png,image/webp">
+      <div class="actions-modale">
+        <button type="button" class="bouton-secondaire" id="boutonAnnulerPlat">Annuler</button>
+        <button type="submit" class="bouton-principal" id="boutonSoumettrePlat">Créer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modale-fond" id="modaleEmployeFond">
+  <div class="modale">
+    <h2>Ajouter un employé</h2>
+    <form id="formEmploye">
+      <label for="employeNom">Nom</label>
+      <input type="text" id="employeNom" required>
+      <label for="employeIdentifiant">Identifiant</label>
+      <input type="text" id="employeIdentifiant" required>
+      <label for="employeMotDePasse">Mot de passe</label>
+      <input type="text" id="employeMotDePasse" required>
+      <label for="employeRole">Rôle</label>
+      <select id="employeRole" required>
+        <option value="cuisinier">Cuisinier</option>
+        <option value="serveur">Serveur</option>
+      </select>
+      <div class="actions-modale">
+        <button type="button" class="bouton-secondaire" id="boutonAnnulerEmploye">Annuler</button>
+        <button type="submit" class="bouton-principal">Créer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modale-fond" id="modaleTableFond">
+  <div class="modale">
+    <h2>Ajouter une table</h2>
+    <form id="formTable">
+      <label for="tableNumero">Numéro de la table</label>
+      <input type="text" id="tableNumero" required>
+      <div class="actions-modale">
+        <button type="button" class="bouton-secondaire" id="boutonAnnulerTable">Annuler</button>
+        <button type="submit" class="bouton-principal">Créer</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modale-photo-fond" id="modalePhotoFond" onclick="fermerPhoto()">
+  <button class="bouton-retour-photo" onclick="fermerPhoto(event)">← Retour</button>
+  <img id="modalePhotoImage" src="" alt="Photo du plat" onclick="event.stopPropagation()">
+</div>
+
+<div class="modale-fond" id="modaleActionsPlatFond">
+  <div class="modale">
+    <h2 id="titreActionsPlat"></h2>
+    <div id="listeActionsPlat" style="display:flex; flex-direction:column; gap:8px; margin-top:6px;"></div>
+    <div class="actions-modale">
+      <button type="button" class="bouton-secondaire" id="boutonFermerActionsPlat" style="width:100%;">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+<script src="js/blocage.js"></script>
+<script src="js/enregistrer-pwa.js"></script>
+</body>
+</html>

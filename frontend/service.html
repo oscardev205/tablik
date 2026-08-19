@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service - Tablik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/service.css">
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1B2A41">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Tablik</div>
+    <h1>Service</h1>
+  </div>
+  <div class="entete-droite">
+    <span id="nomUtilisateur"></span>
+    <button id="boutonDeconnexion">Déconnexion</button>
+  </div>
+</header>
+
+<main>
+  <h2><span class="pastille-titre"></span>Prêtes à servir</h2>
+  <div id="listePretes"></div>
+</main>
+
+<script src="js/service.js"></script>
+<script src="js/blocage.js"></script>
+<script src="js/enregistrer-pwa.js"></script>
+</body>
+</html>

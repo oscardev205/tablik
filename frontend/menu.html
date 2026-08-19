@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu - Tablik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/menu.css">
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">Tablik</div>
+    <h1 id="titreTable">Menu</h1>
+  </div>
+  <button id="boutonMesCommandes">Mes commandes<span id="badgeCommandes"></span></button>
+</header>
+
+<div style="max-width:480px; margin: 16px auto 0; padding: 0 18px;">
+  <input type="text" id="rechercheMenuClient" placeholder="Rechercher un plat..." style="width:100%; padding:11px 13px; border:1.5px solid #E4E1DA; border-radius:7px; font-family:'Inter',sans-serif; font-size:14px; margin-bottom:10px;">
+  <div class="categorie-scroll-wrap">
+    <button class="fleche-categorie" id="flecheCategorieGauche" aria-label="Précédent">‹</button>
+    <div id="filtresCategoriesClient" class="categorie-scroll-zone"></div>
+    <button class="fleche-categorie" id="flecheCategorieDroite" aria-label="Suivant">›</button>
+  </div>
+</div>
+
+<main id="zonePrincipale">
+  <div class="vide">Chargement du menu...</div>
+</main>
+
+<div class="barre-panier" id="barrePanier">
+  <div style="display:flex; flex-direction:column; gap:8px; width:100%;">
+    <input type="text" id="noteCommande" placeholder="Une remarque ? (ex. sans oignon)" style="padding:9px 12px; border-radius:7px; border:none; font-family:'Inter',sans-serif; font-size:13px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="total" id="totalPanier">0 FCFA</span>
+      <button id="boutonCommander">Commander</button>
+    </div>
+  </div>
+</div>
+
+<div id="ecranSuivi">
+  <div class="barre-suivi">
+    <h2>Mes commandes</h2>
+    <button id="boutonRetourMenu">Voir le menu</button>
+  </div>
+  <div id="listeSuivi"></div>
+</div>
+
+<div class="modale-photo-fond" id="modalePhotoFond" onclick="fermerPhoto()">
+  <button class="bouton-retour-photo" onclick="fermerPhoto(event)">← Retour</button>
+  <img id="modalePhotoImage" src="" alt="Photo du plat" onclick="event.stopPropagation()">
+</div>
+
+<script src="js/menu.js"></script>
+</body>
+</html>

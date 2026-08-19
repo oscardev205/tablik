@@ -1,0 +1,128 @@
+body {
+  background:
+    radial-gradient(circle at 10% 15%, rgba(224,152,42,0.10), transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(75,123,93,0.10), transparent 40%),
+    var(--papier);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+header {
+  position: relative;
+  z-index: 501;
+  background: var(--encre);
+  color: var(--papier);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+}
+header h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 2px;
+}
+#nomUtilisateur { font-size: 13px; color: var(--ardoise); }
+#boutonDeconnexion {
+  background: transparent;
+  border: 1px solid rgba(246,243,238,0.3);
+  color: var(--papier);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  cursor: pointer;
+  margin-left: 14px;
+}
+#boutonDeconnexion:hover { border-color: var(--papier); }
+.entete-droite { display: flex; align-items: center; }
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 26px 22px 60px;
+}
+
+.colonnes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 700px) {
+  .colonnes { grid-template-columns: 1fr; gap: 28px; }
+  header { padding: 16px 18px; }
+  main { padding: 20px 16px 50px; }
+}
+
+.colonne h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pastille-titre {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pastille-titre.safran { background: var(--safran); }
+.pastille-titre.sauge { background: var(--sauge); }
+
+.commande-carte {
+  background: linear-gradient(180deg, #ffffff, #fdfcfa);
+  border-radius: 14px;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05), 0 10px 22px rgba(27,42,65,0.08);
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  animation: montee 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.numero {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: var(--ardoise);
+}
+.commande-carte h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  margin: 3px 0 8px;
+}
+.commande-carte ul {
+  list-style: none;
+  font-size: 13.5px;
+  margin-bottom: 12px;
+}
+.commande-carte ul li { padding: 2px 0; }
+
+.bouton-etape {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 9px;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.12s ease;
+}
+.bouton-etape:active { transform: scale(0.97); }
+.bouton-etape.vers-preparation { background: var(--safran); }
+.bouton-etape.vers-prete { background: var(--sauge); }
+
+.vide {
+  text-align: center;
+  padding: 30px 15px;
+  color: var(--ardoise);
+  font-size: 13.5px;
+  background: white;
+  border-radius: 10px;
+}

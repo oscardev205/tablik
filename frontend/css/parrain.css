@@ -1,0 +1,101 @@
+body {
+  background:
+    radial-gradient(circle at 10% 15%, rgba(224,152,42,0.10), transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(75,123,93,0.10), transparent 40%),
+    var(--papier);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+header {
+  background: var(--encre);
+  color: var(--papier);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+}
+header h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 2px;
+}
+#boutonDeconnexion {
+  background: transparent;
+  border: 1px solid rgba(246,243,238,0.3);
+  color: var(--papier);
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 26px 22px 60px;
+}
+.carte-lien {
+  background: linear-gradient(180deg, #ffffff, #fdfcfa);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05), 0 10px 24px rgba(27,42,65,0.08);
+  margin-bottom: 20px;
+  text-align: center;
+}
+.carte-lien .montant {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  color: var(--sauge);
+  margin: 10px 0;
+}
+.lien-parrainage {
+  background: var(--papier);
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  word-break: break-all;
+  margin: 14px 0;
+}
+.bouton-copier {
+  background: var(--encre);
+  color: var(--papier);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  margin: 24px 0 14px;
+}
+.item-carte {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05);
+}
+.pastille {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.pastille.essai { background: rgba(224,152,42,0.12); color: var(--safran); }
+.pastille.actif { background: rgba(75,123,93,0.12); color: var(--sauge); }
+.pastille.expire { background: rgba(193,68,46,0.12); color: var(--piment); }
+.vide { text-align: center; padding: 30px; color: var(--ardoise); font-size: 13.5px; }

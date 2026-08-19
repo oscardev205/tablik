@@ -1,0 +1,30 @@
+{
+  "name": "Tablik",
+  "short_name": "Tablik",
+  "description": "Gestion de commandes et de stock pour restaurant",
+  "start_url": "connexion.html",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#F6F3EE",
+  "theme_color": "#1B2A41",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
