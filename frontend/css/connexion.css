@@ -6,9 +6,17 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  color: var(--encre);
+  padding: 20px 20px 0;
+}
+
+.contenu-centre {
+  flex: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  width: 100%;
 }
 
 .carte {
