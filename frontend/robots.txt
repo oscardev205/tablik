@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /cuisine.html
+Disallow: /service.html
+Disallow: /super-admin.html
+Disallow: /parrain.html
+Disallow: /menu.html
+
+Sitemap: https://tablik.onrender.com/sitemap.xml

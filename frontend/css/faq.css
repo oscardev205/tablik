@@ -1,0 +1,57 @@
+body {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(224,152,42,0.10), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(75,123,93,0.10), transparent 45%),
+    var(--papier);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+header {
+  background: var(--encre);
+  color: var(--papier);
+  padding: 22px 24px;
+  position: relative;
+}
+.lien-retour {
+  color: var(--ardoise);
+  text-decoration: none;
+  font-size: 12.5px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ardoise);
+}
+header h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  margin-top: 2px;
+}
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 30px 22px 60px;
+}
+.question-bloc {
+  background: white;
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 5px rgba(27,42,65,0.05), 0 10px 22px rgba(27,42,65,0.08);
+  animation: montee 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.question-bloc h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: var(--encre);
+  margin-bottom: 8px;
+}
+.question-bloc p {
+  font-size: 13.5px;
+  color: var(--ardoise);
+  line-height: 1.6;
+}

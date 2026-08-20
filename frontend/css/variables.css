@@ -122,3 +122,41 @@ body {
   z-index: 500;
   box-shadow: 0 6px 20px rgba(27,42,65,0.25);
 }
+
+footer.pied-de-page {
+  margin-top: 40px;
+  padding: 22px 20px 26px;
+  text-align: center;
+  border-top: 1px solid #e4e1da;
+}
+footer.pied-de-page .liens-pied {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+footer.pied-de-page a {
+  color: var(--encre);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 4px;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+}
+footer.pied-de-page a:hover { border-color: var(--safran); }
+footer.pied-de-page .copyright {
+  font-family: 'ibm plex mono', monospace;
+  font-size: 10.5px;
+  color: var(--ardoise);
+  letter-spacing: 0.02em;
+}
+footer.pied-de-page .copyright a {
+  font-family: 'inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--safran);
+  border: none;
+  padding: 0;
+}
+footer.pied-de-page .copyright a:hover { color: var(--encre); }
