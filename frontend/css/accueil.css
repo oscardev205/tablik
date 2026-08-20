@@ -1,0 +1,119 @@
+body {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(224,152,42,0.12), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(75,123,93,0.12), transparent 45%),
+    var(--papier);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pastille-marque {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--encre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.pastille-marque span {
+  font-family: 'Fraunces', serif;
+  color: var(--papier);
+  font-weight: 700;
+  font-size: 26px;
+}
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  color: var(--encre);
+  margin-bottom: 6px;
+  text-align: center;
+}
+.sous-titre {
+  font-size: 14px;
+  color: var(--ardoise);
+  margin-bottom: 36px;
+  text-align: center;
+}
+.cartes-accueil {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 700px;
+}
+.carte-accueil {
+  background: linear-gradient(180deg, #ffffff, #fdfcfa);
+  border-radius: 20px;
+  padding: 30px 26px;
+  width: 280px;
+  box-shadow: 0 2px 6px rgba(27,42,65,0.06), 0 24px 48px rgba(27,42,65,0.12);
+  text-align: center;
+}
+.carte-accueil .icone { font-size: 34px; margin-bottom: 12px; }
+.carte-accueil h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  color: var(--encre);
+  margin-bottom: 8px;
+}
+.carte-accueil p {
+  font-size: 13px;
+  color: var(--ardoise);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.carte-accueil .boutons { display: flex; flex-direction: column; gap: 8px; }
+.bouton-accueil-principal {
+  background: var(--encre);
+  color: var(--papier);
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+.bouton-accueil-secondaire {
+  background: var(--papier);
+  color: var(--encre);
+  border: 1.5px solid #E4E1DA;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+#zoneScanner {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(27,42,65,0.95);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+}
+#zoneScanner.actif { display: flex; }
+#lecteurQr { width: 100%; max-width: 400px; border-radius: 16px; overflow: hidden; }
+#fermerScanner {
+  margin-top: 18px;
+  background: white;
+  color: var(--encre);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}

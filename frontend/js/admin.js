@@ -600,6 +600,17 @@ async function chargerAbonnement() {
   carte.innerHTML = contenuStatut;
   afficherNumeroSelonOperateur();
   afficherMontantCalcule();
+
+    if (restaurant.statut !== 'expire') {
+    const dateReference = restaurant.statut === 'essai' ? restaurant.date_fin_essai : restaurant.date_fin_abonnement;
+    if (dateReference) {
+      const joursRestants = Math.ceil((new Date(dateReference) - new Date()) / (1000 * 60 * 60 * 24));
+      if (joursRestants <= 3 && joursRestants >= 0 && !sessionStorage.getItem('alerteExpirationVue')) {
+        notifier('Abonnement bientôt expiré', 'Il reste ' + joursRestants + ' jour(s).');
+        sessionStorage.setItem('alerteExpirationVue', 'true');
+      }
+    }
+  }
 }
 
 function afficherNumeroSelonOperateur() {
@@ -684,7 +695,10 @@ const socket = io(API_URL);
 socket.on('connect', () => {
   socket.emit('rejoindre_restaurant', utilisateur.restaurant_id);
 });
-socket.on('nouvelle_commande', chargerCommandes);
+socket.on('nouvelle_commande', (donnees) => {
+  chargerCommandes();
+  notifier('Nouvelle commande', 'Table ' + (donnees.table_id ? '' : '') + ' vient de commander');
+});
 socket.on('statut_commande_change', () => {
   chargerCommandes();
   const dateAffichee = document.getElementById('dateHistorique').value;
@@ -702,3 +716,12 @@ chargerTables();
 chargerHistorique();
 chargerAbonnement();
 chargerMesDemandes();
+
+socket.on('abonnement_valide', () => {
+  notifier('Abonnement activé', 'Votre paiement a été validé.');
+  chargerAbonnement();
+});
+socket.on('abonnement_refuse', (donnees) => {
+  notifier('Paiement refusé', donnees.raison || 'Contactez le support pour plus de détails.');
+  chargerAbonnement();
+});

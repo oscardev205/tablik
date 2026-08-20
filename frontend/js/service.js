@@ -52,6 +52,11 @@ socket.on('connect', () => {
   socket.emit('rejoindre_restaurant', utilisateur.restaurant_id);
 });
 socket.on('nouvelle_commande', chargerCommandes);
-socket.on('statut_commande_change', chargerCommandes);
+socket.on('statut_commande_change', (donnees) => {
+  chargerCommandes();
+  if (donnees.statut === 'prete') {
+    notifier('Commande prête', 'Une commande est prête à être servie');
+  }
+});
 
 chargerCommandes();

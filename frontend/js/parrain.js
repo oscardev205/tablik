@@ -111,6 +111,24 @@ document.getElementById('formRetrait').addEventListener('submit', async (e) => {
   }
 });
 
+// --- TEMPS RÉEL ---
+const socket = io(API_URL);
+socket.on('connect', () => {
+  socket.emit('rejoindre_parrain', utilisateur.parrain_id);
+});
+socket.on('nouvelle_commission', () => {
+  notifier('Nouvelle commission', 'Vous venez de gagner une commission');
+  chargerMesCommissions();
+});
+socket.on('retrait_traite', (donnees) => {
+  if (donnees.statut === 'validee') {
+    notifier('Retrait payé', 'Votre demande de retrait a été traitée');
+  } else {
+    notifier('Retrait refusé', 'Contactez le support pour plus de détails');
+  }
+  chargerMesRetraits();
+});
+
 chargerMonProfil();
 chargerMesRestaurants();
 chargerMesCommissions();

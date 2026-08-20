@@ -63,7 +63,10 @@ const socket = io(API_URL);
 socket.on('connect', () => {
   socket.emit('rejoindre_restaurant', utilisateur.restaurant_id);
 });
-socket.on('nouvelle_commande', chargerCommandes);
+socket.on('nouvelle_commande', () => {
+  chargerCommandes();
+  notifier('Nouvelle commande', 'Une commande vient d\'arriver en cuisine');
+});
 socket.on('statut_commande_change', chargerCommandes);
 
 chargerCommandes();

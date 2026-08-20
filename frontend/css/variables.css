@@ -77,3 +77,48 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
+
+#zoneToasts {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 0 16px;
+  pointer-events: none;
+}
+.toast-notif {
+  background: var(--encre);
+  color: var(--papier);
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(27,42,65,0.3);
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: montee 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+}
+.toast-notif strong { font-weight: 600; }
+.bouton-activer-notif {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--encre);
+  color: var(--papier);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 500;
+  box-shadow: 0 6px 20px rgba(27,42,65,0.25);
+}

@@ -100,5 +100,6 @@ if (dernierStatut !== 'expire') {
   socketBlocage.on('connect', () => {
     socketBlocage.emit('rejoindre_restaurant', utilisateur.restaurant_id);
   });
-  socketBlocage.on('abonnement_change', verifierStatutAcces);
+  socketBlocage.on('abonnement_valide', verifierStatutAcces);
+socketBlocage.on('abonnement_refuse', verifierStatutAcces);
 })();

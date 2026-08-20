@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablik - Gestion de restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/accueil.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1B2A41">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body>
+
+<div class="pastille-marque"><span>T</span></div>
+<h1>Tablik</h1>
+<div class="sous-titre">Commandes et gestion de restaurant, simplifiées.</div>
+
+<div class="cartes-accueil">
+  <div class="carte-accueil">
+    <div class="icone">🍽️</div>
+    <h2>Vous êtes restaurateur</h2>
+    <p>Gérez votre menu, vos commandes et votre équipe depuis un seul endroit.</p>
+    <div class="boutons">
+      <a href="connexion.html" class="bouton-accueil-principal">Se connecter</a>
+      <a href="inscription.html" class="bouton-accueil-secondaire">Créer mon compte</a>
+    </div>
+  </div>
+
+  <div class="carte-accueil">
+    <div class="icone">📷</div>
+    <h2>Vous êtes client</h2>
+    <p>Scannez le QR code posé sur votre table pour voir le menu et commander.</p>
+    <div class="boutons">
+      <button id="boutonScanner" class="bouton-accueil-principal">Scanner un QR code</button>
+    </div>
+  </div>
+</div>
+
+<div id="zoneScanner">
+  <div id="lecteurQr"></div>
+  <button id="fermerScanner">Annuler</button>
+</div>
+
+<script src="js/accueil.js"></script>
+<script src="js/enregistrer-pwa.js"></script>
+</body>
+</html>

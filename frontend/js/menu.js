@@ -60,10 +60,14 @@ async function initialiser() {
       socket.emit('rejoindre_restaurant', restaurantId);
     });
     socket.on('menu_mis_a_jour', rafraichirMenu);
-    socket.on('statut_commande_change', () => {
+    socket.on('statut_commande_change', (donnees) => {
       mettreAJourBadge();
       if (document.getElementById('ecranSuivi').classList.contains('actif')) {
         afficherEcranSuivi();
+      }
+      const labels = { en_preparation: 'en préparation', prete: 'prête', servie: 'servie' };
+      if (labels[donnees.statut]) {
+        notifier('Commande #' + donnees.commandeId, 'Votre commande est ' + labels[donnees.statut]);
       }
     });
 

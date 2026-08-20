@@ -71,6 +71,7 @@ router.post('/demandes/:id/valider', async (req, res) => {
       [req.params.id]
     );
 
+    let idParrainCommission = null;
     if (restaurantActuel.parrain_id) {
       const parrain = await client.query('SELECT * FROM parrains WHERE id = $1 AND actif = true', [restaurantActuel.parrain_id]);
       if (parrain.rows.length > 0) {
@@ -79,11 +80,15 @@ router.post('/demandes/:id/valider', async (req, res) => {
           `INSERT INTO commissions (parrain_id, restaurant_id, demande_paiement_id, montant) VALUES ($1, $2, $3, $4)`,
           [parrain.rows[0].id, restaurantActuel.id, req.params.id, montantCommission]
         );
+        idParrainCommission = parrain.rows[0].id;
       }
     }
 
     await client.query('COMMIT');
-    req.app.get('io').to('restaurant_' + restaurantActuel.id).emit('abonnement_change');
+    req.app.get('io').to('restaurant_' + restaurantActuel.id).emit('abonnement_valide');
+    if (idParrainCommission) {
+      req.app.get('io').to('parrain_' + idParrainCommission).emit('nouvelle_commission');
+    }
     res.json({ message: 'Abonnement activé', nouvelleDateFin });
   } catch (erreur) {
     await client.query('ROLLBACK');
@@ -109,7 +114,7 @@ router.post('/demandes/:id/refuser', async (req, res) => {
     if (resultat.rows.length === 0) {
       return res.status(400).json({ message: 'Cette demande a déjà été traitée' });
     }
-    req.app.get('io').to('restaurant_' + resultat.rows[0].restaurant_id).emit('abonnement_change');
+    req.app.get('io').to('restaurant_' + resultat.rows[0].restaurant_id).emit('abonnement_refuse', { raison: resultat.rows[0].raison_refus });
     res.json(resultat.rows[0]);
   } catch (erreur) {
     console.error(erreur);
@@ -279,6 +284,26 @@ router.post('/retraits/:id/valider', async (req, res) => {
     if (resultat.rows.length === 0) {
       return res.status(400).json({ message: 'Cette demande a déjà été traitée' });
     }
+    req.app.get('io').to('parrain_' + resultat.rows[0].parrain_id).emit('retrait_traite', { statut: 'validee' });
+    res.json(resultat.rows[0]);
+  } catch (erreur) {
+    console.error(erreur);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+router.post('/retraits/:id/refuser', async (req, res) => {
+  const { raison } = req.body;
+  try {
+    const resultat = await pool.query(
+      `UPDATE demandes_retrait SET statut = 'refusee', raison_refus = $1, date_traitement = NOW()
+       WHERE id = $2 AND statut = 'en_attente' RETURNING *`,
+      [raison || null, req.params.id]
+    );
+    if (resultat.rows.length === 0) {
+      return res.status(400).json({ message: 'Cette demande a déjà été traitée' });
+    }
+    req.app.get('io').to('parrain_' + resultat.rows[0].parrain_id).emit('retrait_traite', { statut: 'refusee' });
     res.json(resultat.rows[0]);
   } catch (erreur) {
     console.error(erreur);

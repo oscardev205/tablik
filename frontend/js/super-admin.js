@@ -332,6 +332,20 @@ async function refuserRetrait(id) {
   }
 }
 
+// --- TEMPS RÉEL ---
+const socket = io(API_URL);
+socket.on('connect', () => {
+  socket.emit('rejoindre_super_admin');
+});
+socket.on('nouvelle_demande_paiement', () => {
+  notifier('Nouvelle demande de paiement', 'Un restaurant a déclaré un paiement');
+  chargerDemandes();
+});
+socket.on('nouvelle_demande_retrait', () => {
+  notifier('Nouvelle demande de retrait', 'Un parrain souhaite retirer ses gains');
+  chargerRetraits();
+});
+
 // Chargement initial
 chargerDemandes();
 chargerHistoriqueDemandes();

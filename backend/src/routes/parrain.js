@@ -83,6 +83,7 @@ router.post('/demande-retrait', async (req, res) => {
        VALUES ($1, $2, $3, $4) RETURNING *`,
       [req.utilisateur.parrain_id, montant, operateur, numero_reception]
     );
+    req.app.get('io').to('super_admins').emit('nouvelle_demande_retrait');
     res.status(201).json(resultat.rows[0]);
   } catch (erreur) {
     console.error(erreur);

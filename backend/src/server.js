@@ -47,6 +47,14 @@ io.on('connection', (socket) => {
     socket.join('restaurant_' + restaurantId);
   });
 
+  socket.on('rejoindre_super_admin', () => {
+    socket.join('super_admins');
+  });
+
+  socket.on('rejoindre_parrain', (parrainId) => {
+    socket.join('parrain_' + parrainId);
+  });
+
   socket.on('disconnect', () => {
     console.log('Client déconnecté, id :', socket.id);
   });
