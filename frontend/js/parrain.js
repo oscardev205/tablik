@@ -42,7 +42,7 @@ async function chargerMesRestaurants() {
 
   conteneur.innerHTML = restaurants.map((r) => `
     <div class="item-carte">
-      <span>${r.nom}</span>
+      <span>${echapper(r.nom)}</span>
       <span class="pastille ${r.statut}">${LABELS_STATUT[r.statut]}</span>
     </div>
   `).join('');
@@ -63,7 +63,7 @@ async function chargerMesCommissions() {
 
   conteneur.innerHTML = donnees.commissions.map((c) => `
     <div class="item-carte">
-      <span>${c.nom_restaurant} — ${new Date(c.date_creation).toLocaleDateString('fr-FR')}</span>
+      <span>${echapper(c.nom_restaurant)} — ${new Date(c.date_creation).toLocaleDateString('fr-FR')}</span>
       <span style="font-family:'IBM Plex Mono',monospace; color:var(--sauge); font-weight:600;">+${Number(c.montant).toLocaleString('fr-FR')} FCFA</span>
     </div>
   `).join('');

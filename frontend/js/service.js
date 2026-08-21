@@ -26,10 +26,10 @@ async function chargerCommandes() {
     ? pretes.map((c) => `
         <div class="commande-carte">
           <div>
-            <div class="numero">Table ${c.numero_table} — #${c.id}</div>
+            <div class="numero">Table ${echapper(c.numero_table)} — #${c.id}</div>
             <h3>${c.lignes.length} plat(s)</h3>
             <ul>
-              ${c.lignes.map((l) => `<li>${l.quantite} × ${l.nom}</li>`).join('')}
+              ${c.lignes.map((l) => `<li>${l.quantite} × ${echapper(l.nom)}</li>`).join('')}
             </ul>
           </div>
           <button class="bouton-etape" onclick="changerStatut(${c.id})">Marquer servie</button>

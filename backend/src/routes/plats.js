@@ -4,6 +4,7 @@ const multer = require('multer');
 const { put, del } = require('@vercel/blob');
 const pool = require('../db');
 const { verifierToken, autoriserRoles } = require('../middlewares/auth');
+const sharp = require('sharp');
 
 // Stockage en mémoire (pas sur disque), le fichier est ensuite envoyé directement vers Vercel Blob
 const upload = multer({
@@ -117,11 +118,22 @@ router.post('/:id/photo', verifierToken, autoriserRoles('admin'), upload.single(
     return res.status(400).json({ message: 'Aucune image reçue' });
   }
   try {
-    const nomFichier = 'plats/' + req.utilisateur.restaurant_id + '-' + Date.now() + '-' + req.file.originalname;
+    // Vérification réelle du contenu + compression + conversion en WebP
+    let imageTraitee;
+    try {
+      imageTraitee = await sharp(req.file.buffer)
+        .resize(800, 800, { fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: 75 })
+        .toBuffer();
+    } catch (erreurImage) {
+      return res.status(400).json({ message: 'Le fichier envoyé n\'est pas une image valide' });
+    }
 
-    const blob = await put(nomFichier, req.file.buffer, {
+    const nomFichier = 'plats/' + req.utilisateur.restaurant_id + '-' + Date.now() + '.webp';
+
+    const blob = await put(nomFichier, imageTraitee, {
       access: 'public',
-      contentType: req.file.mimetype
+      contentType: 'image/webp'
     });
 
     const resultat = await pool.query(

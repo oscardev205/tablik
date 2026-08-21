@@ -1,4 +1,13 @@
 (function () {
+  window.echapper = function (texte) {
+  if (texte === null || texte === undefined) return '';
+  return String(texte)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+};
   const conteneurToasts = document.createElement('div');
   conteneurToasts.id = 'zoneToasts';
   document.body.appendChild(conteneurToasts);

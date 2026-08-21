@@ -37,12 +37,12 @@ async function chargerCommandes() {
 function carteCommande(commande, prochainStatut, texteBouton, classeBouton) {
   return `
     <div class="commande-carte ${commande.statut}">
-      <div class="numero">Table ${commande.numero_table} — #${commande.id}</div>
+      <div class="numero">Table ${echapper(commande.numero_table)} — #${commande.id}</div>
       <h3>${commande.lignes.length} plat(s)</h3>
       <ul>
-        ${commande.lignes.map((l) => `<li>${l.quantite} × ${l.nom}</li>`).join('')}
+        ${commande.lignes.map((l) => `<li>${l.quantite} × ${echapper(l.nom)}</li>`).join('')}
       </ul>
-      ${commande.note ? `<div style="background: rgba(224,152,42,0.12); color: var(--safran); font-size:12.5px; font-weight:600; padding:8px 10px; border-radius:6px; margin-bottom:12px;">📝 ${commande.note}</div>` : ''}
+      ${commande.note ? `<div style="background: rgba(224,152,42,0.12); color: var(--safran); font-size:12.5px; font-weight:600; padding:8px 10px; border-radius:6px; margin-bottom:12px;">📝 ${echapper(commande.note)}</div>` : ''}
       <button class="bouton-etape ${classeBouton}" onclick="changerStatut(${commande.id}, '${prochainStatut}')">
         ${texteBouton}
       </button>

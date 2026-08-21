@@ -6,17 +6,31 @@ const pool = require('../db');
 const { verifierToken, autoriserRoles } = require('../middlewares/auth');
 const { verifierEtMettreAJourExpiration } = require('../services/verificationAbonnement');
 
+const rateLimit = require('express-rate-limit');
+
+const limiteurConnexion = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { message: 'Trop de tentatives, réessayez dans quelques minutes' }
+});
+
+const limiteurInscription = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  message: { message: 'Trop de tentatives d\'inscription, réessayez plus tard' }
+});
+
 const DUREE_ESSAI_JOURS = 7;
 
 // Inscription d'un nouveau restaurant (self-service)
-router.post('/inscription-restaurant', async (req, res) => {
+router.post('/inscription-restaurant', limiteurinscription, async (req, res) => {
  const { nom_restaurant, nom_admin, telephone, identifiant, mot_de_passe, code_parrain } = req.body;
 
   if (!nom_restaurant || !nom_admin || !telephone || !identifiant || !mot_de_passe) {
     return res.status(400).json({ message: 'Tous les champs sont obligatoires' });
   }
-  if (mot_de_passe.length < 6) {
-    return res.status(400).json({ message: 'Le mot de passe doit faire au moins 6 caractères' });
+  if (mot_de_passe.length < 8 || !/[0-9]/.test(mot_de_passe) || !/[a-za-z]/.test(mot_de_passe)) {
+    return res.status(400).json({ message: 'Le mot de passe doit faire au moins 8 caractères et contenir au moins une lettre et un chiffre' });
   }
 
   const client = await pool.connect();
@@ -86,7 +100,7 @@ router.post('/inscription-restaurant', async (req, res) => {
 });
 
 // Connexion (admin, cuisinier ou serveur)
-router.post('/login', async (req, res) => {
+router.post('/login', limiteurconnexion, async (req, res) => {
   const { identifiant, mot_de_passe } = req.body;
   if (!identifiant || !mot_de_passe) {
     return res.status(400).json({ message: 'identifiant et mot_de_passe sont obligatoires' });

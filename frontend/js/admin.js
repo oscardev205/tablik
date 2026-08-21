@@ -69,12 +69,12 @@ async function chargerCommandes() {
   conteneur.innerHTML = commandes.map((commande) => `
     <div class="commande-carte ${commande.statut}">
       <div class="commande-info">
-        <div class="numero">Table ${commande.numero_table} — #${commande.id}</div>
+        <div class="numero">Table ${echapper(commande.numero_table)} — #${commande.id}</div>
         <h3>${commande.lignes.length} plat(s)</h3>
         <ul>
-          ${commande.lignes.map((l) => `<li>${l.quantite} × ${l.nom}</li>`).join('')}
+          ${commande.lignes.map((l) => `<li>${l.quantite} × ${echapper(l.nom)}</li>`).join('')}
         </ul>
-        ${commande.note ? `<div style="background: rgba(224,152,42,0.12); color: var(--safran); font-size:12px; font-weight:600; padding:6px 9px; border-radius:6px; margin-bottom:8px;">📝 ${commande.note}</div>` : ''}
+        ${commande.note ? `<div style="background: rgba(224,152,42,0.12); color: var(--safran); font-size:12px; font-weight:600; padding:6px 9px; border-radius:6px; margin-bottom:8px;">📝 ${echapper(commande.note)}</div>` : ''}
       </div>
       <select class="statut-select" onchange="changerStatut(${commande.id}, this.value)">
         ${Object.entries(LABELS_STATUT).map(([valeur, label]) =>
@@ -107,18 +107,18 @@ async function chargerCategories() {
   const tags = document.getElementById('listeCategoriesTags');
   tags.innerHTML = toutesLesCategories.map((cat) => `
     <span class="tag-categorie">
-      ${cat.nom}
+      ${echapper(cat.nom)}
       <button onclick="supprimerCategorie(${cat.id})">×</button>
     </span>
   `).join('') || '<span style="color:var(--ardoise); font-size:12.5px;">Aucune catégorie pour le moment.</span>';
 
   const filtre = document.getElementById('filtreCategorieAdmin');
   filtre.innerHTML = '<option value="">Toutes les catégories</option>' +
-    toutesLesCategories.map((cat) => `<option value="${cat.id}">${cat.nom}</option>`).join('');
+    toutesLesCategories.map((cat) => `<option value="${cat.id}">${echapper(cat.nom)}</option>`).join('');
 
   const selectModale = document.getElementById('platCategorie');
   selectModale.innerHTML = '<option value="">Aucune</option>' +
-    toutesLesCategories.map((cat) => `<option value="${cat.id}">${cat.nom}</option>`).join('');
+    toutesLesCategories.map((cat) => `<option value="${cat.id}">${echapper(cat.nom)}</option>`).join('');
 }
 
 document.getElementById('boutonAjouterCategorie').addEventListener('click', async () => {
@@ -181,10 +181,10 @@ function afficherPlatsFiltres() {
     return `
       <div class="plat-carte-admin" onclick="ouvrirActionsPlat(${plat.id})">
         <div class="plat-image-zone-admin">
-          ${urlPhoto ? `<img src="${urlPhoto}" alt="${plat.nom}">` : '🍽️'}
+          ${urlPhoto ? `<img src="${urlPhoto}" alt="${echapper(plat.nom)}">` : '🍽️'}
         </div>
         <div class="plat-carte-admin-corps">
-          <h3>${plat.nom}</h3>
+          <h3>${echapper(plat.nom)}</h3>
           <div class="prix-mini">${Number(plat.prix).toLocaleString('fr-FR')} FCFA</div>
           <div class="badges-mini">
             <span class="badge-mini ${plat.disponible ? 'dispo' : 'indispo'}">${plat.disponible ? 'Dispo' : 'Indispo'}</span>
@@ -341,8 +341,8 @@ async function chargerEmployes() {
         <span class="pastille ${employe.actif ? 'dispo' : 'indispo'}">
           ${employe.actif ? 'Actif' : 'Désactivé'}
         </span>
-        <h3>${employe.nom}</h3>
-        <div class="stock">${employe.identifiant} — ${employe.role}</div>
+        <h3>${echapper(employe.nom)}</h3>
+        <div class="stock">${echapper(employe.identifiant)} — ${employe.role}</div>
         <div class="actions-ticket">
           ${employe.role !== 'admin' ? `
             <button class="lien-action" onclick="basculerActif(${employe.id}, ${!employe.actif})">
@@ -414,11 +414,11 @@ async function chargerTables() {
     return `
       <div class="ticket">
         <div class="ticket-corps" style="text-align:center;">
-          <div class="eyebrow">${nomRestaurant}</div>
-          <img src="${urlQr}" width="160" height="160" style="margin: 12px auto; display:block;" alt="QR code table ${t.numero}">
-          <h3>Table ${t.numero}</h3>
+          <div class="eyebrow">${echapper(nomRestaurant)}</div>
+          <img src="${urlQr}" width="160" height="160" style="margin: 12px auto; display:block;" alt="QR code table ${echapper(t.numero)}">
+          <h3>Table ${echapper(t.numero)}</h3>
           <div class="actions-ticket" style="justify-content:center;">
-            <button class="lien-action" onclick="telechargerTicketTable('${urlQr}', '${t.numero}', '${nomRestaurant}')">Télécharger</button>
+            <button class="lien-action" onclick="telechargerTicketTable('${urlQr}', '${t.numero}', '${nomRestaurant.replace(/'/g, "\\'")}')">Télécharger</button>
             <button class="lien-action danger" onclick="supprimerTable(${t.id})">Supprimer</button>
           </div>
         </div>
@@ -514,7 +514,7 @@ async function chargerHistorique() {
   } else {
     recapConteneur.innerHTML = donnees.recapPlats.map((p) => `
       <div class="recap-ligne">
-        <span class="nom-plat">${p.nom}</span>
+        <span class="nom-plat">${echapper(p.nom)}</span>
         <span class="quantite-plat">${p.quantite} vendu(s) — ${Number(p.montant).toLocaleString('fr-FR')} FCFA</span>
       </div>
     `).join('');
@@ -528,12 +528,12 @@ async function chargerHistorique() {
   conteneur.innerHTML = donnees.commandes.map((commande) => `
     <div class="commande-carte historique">
       <div class="commande-info">
-        <div class="numero">Table ${commande.numero_table} — #${commande.id}</div>
+        <div class="numero">Table ${echapper(commande.numero_table)} — #${commande.id}</div>
         <h3>${commande.lignes.length} plat(s)</h3>
         <ul>
-          ${commande.lignes.map((l) => `<li>${l.quantite} × ${l.nom}</li>`).join('')}
+          ${commande.lignes.map((l) => `<li>${l.quantite} × ${echapper(l.nom)}</li>`).join('')}
         </ul>
-        ${commande.note ? `<div style="background: rgba(224,152,42,0.12); color: var(--safran); font-size:12px; font-weight:600; padding:6px 9px; border-radius:6px; margin-bottom:8px;">📝 ${commande.note}</div>` : ''}
+        ${commande.note ? `<div style="background: rgba(224,152,42,0.12); color: var(--safran); font-size:12px; font-weight:600; padding:6px 9px; border-radius:6px; margin-bottom:8px;">📝 ${echapper(commande.note)}</div>` : ''}
         <div class="total-ligne">${Number(commande.total).toLocaleString('fr-FR')} FCFA</div>
       </div>
     </div>
@@ -591,9 +591,9 @@ async function chargerAbonnement() {
   contenuStatut += `
     <div style="margin-top:14px; padding-top:14px; border-top:1px solid #E4E1DA;">
       <p style="font-size:13px; margin-bottom:6px;"><strong>Montant mensuel : ${Number(parametres.montant_abonnement).toLocaleString('fr-FR')} FCFA</strong></p>
-      ${parametres.numero_mtn ? `<p style="font-size:12.5px; color:var(--ardoise);">MTN : ${parametres.numero_mtn}</p>` : ''}
-      ${parametres.numero_moov ? `<p style="font-size:12.5px; color:var(--ardoise);">Moov : ${parametres.numero_moov}</p>` : ''}
-      ${parametres.numero_celtiis ? `<p style="font-size:12.5px; color:var(--ardoise);">Celtiis : ${parametres.numero_celtiis}</p>` : ''}
+      ${parametres.numero_mtn ? `<p style="font-size:12.5px; color:var(--ardoise);">MTN : ${echapper(parametres.numero_mtn)}</p>` : ''}
+      ${parametres.numero_moov ? `<p style="font-size:12.5px; color:var(--ardoise);">Moov : ${echapper(parametres.numero_moov)}</p>` : ''}
+      ${parametres.numero_celtiis ? `<p style="font-size:12.5px; color:var(--ardoise);">Celtiis : ${echapper(parametres.numero_celtiis)}</p>` : ''}
     </div>
   `;
 
@@ -659,8 +659,8 @@ async function chargerMesDemandes() {
       <div class="commande-info">
         <div class="numero">${formaterDate(d.date_creation)}</div>
         <h3>${LABELS_OPERATEUR[d.operateur]} — ${d.nombre_mois} mois — ${Number(d.montant).toLocaleString('fr-FR')} FCFA</h3>
-        <div style="font-size:12.5px; color:var(--ardoise);">ID transaction : ${d.id_transaction}</div>
-        ${d.raison_refus ? `<div style="font-size:12.5px; color:var(--piment); margin-top:4px;">Motif : ${d.raison_refus}</div>` : ''}
+        <div style="font-size:12.5px; color:var(--ardoise);">ID transaction : ${echapper(d.id_transaction)}</div>
+        ${d.raison_refus ? `<div style="font-size:12.5px; color:var(--piment); margin-top:4px;">Motif : ${echapper(d.raison_refus)}</div>` : ''}
       </div>
       <span class="pastille ${d.statut === 'validee' ? 'dispo' : d.statut === 'refusee' ? 'indispo' : ''}" style="${d.statut === 'en_attente' ? 'background: rgba(224,152,42,0.12); color: var(--safran);' : ''}">
         ${LABELS_STATUT_DEMANDE[d.statut]}

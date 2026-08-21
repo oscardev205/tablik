@@ -12,16 +12,23 @@ const categoriesRouter = require('./routes/categories');
 const abonnementRouter = require('./routes/abonnement');
 const superadminRouter = require('./routes/superadmin');
 const parrainRouter = require('./routes/parrain');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const server = http.createServer(app);
+const ORIGINES_AUTORISEES = process.env.ORIGINES_AUTORISEES
+  ? process.env.ORIGINES_AUTORISEES.split(',')
+  : ['http://localhost:3000'];
+
 const io = new Server(server, {
   cors: {
-    origin: '*'
+    origin: ORIGINES_AUTORISEES
   }
 });
 
-app.use(cors());
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(cors({ origin: ORIGINES_AUTORISEES }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', '..', 'frontend')));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));

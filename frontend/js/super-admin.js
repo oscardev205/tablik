@@ -48,7 +48,7 @@ async function chargerDemandes() {
     <div class="demande-carte">
       <div class="demande-info">
         <div class="numero">${formaterDate(d.date_creation)}</div>
-        <h3>${d.nom_restaurant}</h3>
+        <h3>${echapper(d.nom_restaurant)}</h3>
         <div class="detail">${LABELS_OPERATEUR[d.operateur]} — ${d.nombre_mois} mois — ${Number(d.montant).toLocaleString('fr-FR')} FCFA — ID : ${d.id_transaction}</div>
       </div>
       <div class="actions-demande">
@@ -107,7 +107,7 @@ async function chargerHistoriqueDemandes() {
     <div class="demande-carte">
       <div class="demande-info">
         <div class="numero">${formaterDate(d.date_traitement)}</div>
-        <h3>${d.nom_restaurant}</h3>
+        <h3>${echapper(d.nom_restaurant)}</h3>
         <div class="detail">${LABELS_OPERATEUR[d.operateur]} — ${d.nombre_mois} mois — ${Number(d.montant).toLocaleString('fr-FR')} FCFA</div>
       </div>
       <span class="pastille ${d.statut}">${d.statut === 'validee' ? 'Validée' : 'Refusée'}</span>
@@ -136,10 +136,10 @@ function afficherRestaurantsFiltres() {
 
   corps.innerHTML = restaurants.map((r) => `
     <tr>
-      <td>${r.nom}</td>
+      <td>${echapper(r.nom)}</td>
       <td><span class="pastille ${r.statut}">${LABELS_STATUT_RESTAURANT[r.statut]}</span></td>
       <td>${r.statut === 'essai' ? formaterDate(r.date_fin_essai) : formaterDate(r.date_fin_abonnement)}</td>
-      <td>${r.telephone || '—'}</td>
+      <td>${echapper(r.telephone) || '—'}</td>
     </tr>
   `).join('');
 }
@@ -195,7 +195,7 @@ async function chargerParrains() {
       <div class="demande-carte">
         <div class="demande-info">
           <div class="numero">${p.nombre_restaurants} restaurant(s) parrainé(s)</div>
-          <h3>${p.nom}</h3>
+      <h3>${echapper(p.nom)}</h3>
           <div class="detail">Commission ${p.pourcentage_commission}% — Total gagné : ${Number(p.total_commissions).toLocaleString('fr-FR')} FCFA</div>
           <div class="detail" style="margin-top:4px; word-break:break-all;">${lien}</div>
         </div>
@@ -266,7 +266,7 @@ async function chargerRetraits() {
     <div class="demande-carte">
       <div class="demande-info">
         <div class="numero">${formaterDate(r.date_creation)}</div>
-        <h3>${r.nom_parrain} — ${Number(r.montant).toLocaleString('fr-FR')} FCFA</h3>
+        <h3>${echapper(r.nom_parrain)} — ${Number(r.montant).toLocaleString('fr-FR')} FCFA</h3>
         <div class="detail">${LABELS_OPERATEUR[r.operateur]} — Numéro : ${r.numero_reception}</div>
       </div>
       <div class="actions-demande">
@@ -291,7 +291,7 @@ async function chargerHistoriqueRetraits() {
     <div class="demande-carte">
       <div class="demande-info">
         <div class="numero">${formaterDate(r.date_traitement)}</div>
-        <h3>${r.nom_parrain} — ${Number(r.montant).toLocaleString('fr-FR')} FCFA</h3>
+        <h3>${echapper(r.nom_parrain)} — ${Number(r.montant).toLocaleString('fr-FR')} FCFA</h3>
         <div class="detail">${LABELS_OPERATEUR[r.operateur]} — Numéro : ${r.numero_reception}</div>
         ${r.raison_refus ? `<div class="detail" style="color:var(--piment);">Motif : ${r.raison_refus}</div>` : ''}
       </div>

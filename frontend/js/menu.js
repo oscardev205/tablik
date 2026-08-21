@@ -84,7 +84,7 @@ function afficherFiltresCategories() {
 
   conteneur.innerHTML = tags.map((cat) => `
     <button class="pastille-categorie ${categorieChoisieClient === String(cat.id) ? 'actif' : ''}"
-      onclick="choisirCategorieClient('${cat.id}')">${cat.nom}</button>
+      onclick="choisirCategorieClient('${cat.id}')">${echapper(cat.nom)}</button>
   `).join('');
 }
 
@@ -147,7 +147,7 @@ function afficherMenu() {
           ${plat.mis_en_avant ? '<span class="badge-avant-carte">★ Plat du jour</span>' : ''}
         </div>
         <div class="plat-carte-corps">
-          <h3>${plat.nom}</h3>
+         <h3>${echapper(plat.nom)}</h3>
           <div class="plat-prix">${Number(plat.prix).toLocaleString('fr-FR')} FCFA</div>
           <div class="plat-carte-bas">
             ${quantite === 0
@@ -306,8 +306,8 @@ async function afficherEcranSuivi() {
     const indexActuel = ordre.indexOf(c.statut);
     return `
       <div class="commande-suivi">
-        <div class="numero">Table ${c.numero_table} — #${c.id}</div>
-        <ul>${c.lignes.map((l) => `<li>${l.quantite} × ${l.nom}</li>`).join('')}</ul>
+        <div class="numero">Table ${echapper(c.numero_table)} — #${c.id}</div>
+        <ul>${c.lignes.map((l) => `<li>${l.quantite} × ${echapper(l.nom)}</li>`).join('')}</ul>
         <div class="etapes-mini">
           ${ordre.map((statut, i) => `
             <div class="etape-mini ${i < indexActuel ? 'atteinte' : ''} ${i === indexActuel ? 'en_cours' : ''}">
